@@ -874,9 +874,58 @@ footer {
   color: #fff;
 }
 
-@media (max-width: 400px) {
-  .login-modal {
-    max-width: 98vw;
-    padding: 1.2rem 0.7rem 1.2rem 0.7rem;
+@media (max-width: 700px) {
+  /* Mobile layout for store cards: image left, text right */
+  .store-card {
+    flex-direction: row;
+    min-height: 100px;
+    align-items: stretch;
+    padding: 0;
+    height: 100px;
+  }
+  .store-image {
+    width: 42vw;
+    max-width: 110px;
+    min-width: 80px;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px 0 0 16px;
+    padding: 0;
+    margin: 0;
+    background: #fff;
+    display: block;
+  }
+  .store-details {
+    flex: 1 1 0;
+    padding: 0.7rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #fff;
+    border-radius: 0 16px 16px 0;
+    min-width: 0;
+    height: 100%;
+  }
+  .store-name {
+    font-size: 0.98rem;
+    margin-bottom: 0.18rem;
+    color: #ff4d6d;
+    font-weight: 600;
+    text-align: left;
+    word-break: break-word;
+  }
+  .store-desc {
+    font-size: 0.82rem;
+    color: #777;
+    text-align: left;
+    line-height: 1.2;
+    max-height: 2.2em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .eta {
+    font-size: 0.75rem;
+    margin-top: 0.2rem;
   }
 }
