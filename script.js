@@ -47,3 +47,29 @@ window.addEventListener('keydown', function(e) {
     document.body.style.overflow = '';
   }
 });
+
+// Sidebar toggle logic for mobile/tablet
+const sidebarToggle = document.getElementById('sidebarToggle');
+const categorySidebar = document.getElementById('categorySidebar');
+const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+sidebarToggle.addEventListener('click', function() {
+  categorySidebar.classList.add('open');
+  sidebarOverlay.style.display = 'block';
+  sidebarToggle.style.display = 'none'; // Hide the toggle button
+});
+
+sidebarOverlay.addEventListener('click', function() {
+  categorySidebar.classList.remove('open');
+  sidebarOverlay.style.display = 'none';
+  sidebarToggle.style.display = ''; // Show the toggle button again
+});
+
+// Optionally, close sidebar with Escape key
+window.addEventListener('keydown', function(e) {
+  if (e.key === "Escape" && categorySidebar.classList.contains('open')) {
+    categorySidebar.classList.remove('open');
+    sidebarOverlay.style.display = 'none';
+    sidebarToggle.style.display = '';
+  }
+});
