@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WearNow - Fashion on Demand</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="logo.png" alt="WearNow Logo">
+      <div class="site-title">WearNow</div>
+    </div>
+    
+    <div class="auth-links">
+      <a href="#" class="login-btn"><i class="fas fa-user"></i> Sign In / Login</a>
+    </div>
+  </header>
+
+  <!-- Sidebar toggle button (mobile/tablet only) -->
+  <button id="sidebarToggle" class="sidebar-toggle-btn">
+    <i class="fas fa-bars"></i> Categories
+  </button>
+
+  <!-- Sidebar overlay for mobile -->
+  <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+  <div class="hero-section">
+    <!-- Decorative transparent PNGs -->
+    <img src="shirt.png" class="hero-img hero-img-left" alt="Shirt" />
+    <img src="dress.png" class="hero-img hero-img-right" alt="Dress" />
+
+    <nav class="category-sidebar" id="categorySidebar">
+      <h3>Categories</h3>
+      <ul>
+        <li>Casual Wear</li>
+        <li>Formal</li>
+        <li>Party</li>
+        <li>Street Style</li>
+        <li>Ethnic</li>
+      </ul>
+    </nav>
+    <div class="intro-section">
+      <h1>Fashion Delivered at Lightning Speed!</h1>
+      <p>Get the latest trends delivered to your doorstep in under 60 minutes.</p>
+      <p>Free delivery, curated styles, exclusive brands — all at your fingertips.</p>
+      <div class="search-bar">
+        <input type="text" placeholder="Search for fashion stores, styles, or products...">
+      </div>
+    </div>
+  </div>
+
+  <div class="carousel">
+    <h2>Trending Now</h2>
+    
+    <!-- Category Circles Start -->
+    <div class="trending-circles">
+      <div class="trend-circle-group">
+        <div class="trend-circle">
+          <img src="men.jpg" alt="Men" class="trend-img" />
+        </div>
+        <span class="trend-label">Men</span>
+      </div>
+      <div class="trend-circle-group">
+        <div class="trend-circle">
+          <img src="women.jpg" alt="Women" class="trend-img" />
+        </div>
+        <span class="trend-label">Women</span>
+      </div>
+      <div class="trend-circle-group">
+        <div class="trend-circle">
+          <img src="top.jpg" alt="Top" class="trend-img" />
+        </div>
+        <span class="trend-label">Top</span>
+      </div>
+      <div class="trend-circle-group">
+        <div class="trend-circle">
+          <img src="bottom.jpg" alt="Bottom" class="trend-img" />
+        </div>
+        <span class="trend-label">Bottom</span>
+      </div>
+      <div class="trend-circle-group">
+        <div class="trend-circle">
+          <img src="over.jpg" alt="Over" class="trend-img" />
+        </div>
+        <span class="trend-label">Over</span>
+      </div>
+    </div>
+    <!-- Category Circles End -->
+
+    <div class="carousel-track">
+      <img src="image1.png" alt="Trending 1">
+      <img src="image2.png" alt="Trending 2">
+      <img src="image3.png" alt="Trending 3">
+      <img src="image4.png" alt="Trending 4">
+      <img src="image5.png" alt="Trending 5">
+    </div>
+  </div>
+
+  <!-- Branded Stores Section -->
+  <div class="store-container">
+    <h2 class="store-heading">Branded Stores</h2>
+    <div class="store-card">
+      <img src="fab.png" alt="Fabindia" class="store-image" />
+      <div class="store-details">
+        <div class="store-name">Fabindia</div>
+        <div class="store-desc">Handcrafted ethnic & fusion wear for all ages</div>
+        <div class="eta">🚚 Delivery in 40 mins</div>
+      </div>
+    </div>
+    <div class="store-card">
+      <img src="manyavar.png" alt="Manyavar" class="store-image" />
+      <div class="store-details">
+        <div class="store-name">Manyavar</div>
+        <div class="store-desc">Premium wedding & festive wear for men</div>
+        <div class="eta">🚚 Delivery in 50 mins</div>
+      </div>
+    </div>
+    <div class="store-card">
+      <img src="biba.png" alt="Biba" class="store-image" />
+      <div class="store-details">
+        <div class="store-name">Biba</div>
+        <div class="store-desc">Trendy ethnic fashion for women & girls</div>
+        <div class="eta">🚚 Delivery in 55 mins</div>
+      </div>
+    </div>
+    <div class="store-card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/H%26M-Logo.svg" alt="H&M" class="store-image" />
+      <div class="store-details">
+        <div class="store-name">H&M</div>
+        <div class="store-desc">Modern basics & trending styles for all</div>
+        <div class="eta">🚚 Delivery in 35 mins</div>
+      </div>
+    </div>
+    <div class="store-card">
+      <img src="zara.png" alt="Zara" class="store-image" />
+      <div class="store-details">
+        <div class="store-name">Zara</div>
+        <div class="store-desc">Chic fashion for men & women</div>
+        <div class="eta">🚚 Delivery in 45 mins</div>
+      </div>
+    </div>
+    <div class="store-card">
+      <img src="pantaloons.png" alt="Pantaloons" class="store-image" />
+      <div class="store-details">
+        <div class="store-name">Pantaloons</div>
+        <div class="store-desc">Family fashion destination for all ages</div>
+        <div class="eta">🚚 Delivery in 60 mins</div>
+      </div>
+    </div>
+    <div class="store-card">
+      <img src="levis.png" alt="Levi's" class="store-image" />
+      <div class="store-details">
+        <div class="store-name">Levi's</div>
+        <div class="store-desc">Iconic denim & casual wear for all</div>
+        <div class="eta">🚚 Delivery in 38 mins</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Local Stores Section -->
+  <div class="store-container">
+    <h2 class="store-heading">Local Stores</h2>
+    <div class="store-card">
+      <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80" alt="Ritu Boutique" class="store-image" />
+      <div class="store-details">
+        <div class="store-name">Ritu Boutique</div>
+        <div class="store-desc">Custom tailoring & ethnic wear for women</div>
+        <div class="eta">🚚 Delivery in 30 mins</div>
+      </div>
+    </div>
+    <div class="store-card">
+      <img src="sharma.png" alt="Sharma Garments" class="store-image" />
+      <div class="store-details">
+        <div class="store-name">Sharma Garments</div>
+        <div class="store-desc">Affordable fashion for the whole family</div>
+        <div class="eta">🚚 Delivery in 25 mins</div>
+      </div>
+    </div>
+    <div class="store-card">
+      <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="City Style" class="store-image" />
+      <div class="store-details">
+        <div class="store-name">City Style</div>
+        <div class="store-desc">Trendy western wear for youth</div>
+        <div class="eta">🚚 Delivery in 28 mins</div>
+      </div>
+    </div>
+    <div class="store-card">
+      <img src="laxmi.png" alt="Lakshmi Saree House" class="store-image" />
+      <div class="store-details">
+        <div class="store-name">Lakshmi Saree House</div>
+        <div class="store-desc">Exclusive sarees & ethnic collections</div>
+        <div class="eta">🚚 Delivery in 35 mins</div>
+      </div>
+    </div>
+    <div class="store-card">
+      <img src="https://images.unsplash.com/photo-1465101178521-c1a9136a3fd9?auto=format&fit=crop&w=400&q=80" alt="Modern Menswear" class="store-image" />
+      <div class="store-details">
+        <div class="store-name">Modern Menswear</div>
+        <div class="store-desc">Formal & casual wear for men</div>
+        <div class="eta">🚚 Delivery in 32 mins</div>
+      </div>
+    </div>
+    <div class="store-card">
+      <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=400&q=80" alt="Kids Fashion Point" class="store-image" />
+      <div class="store-details">
+        <div class="store-name">Kids Fashion Point</div>
+        <div class="store-desc">Trendy clothes for kids & teens</div>
+        <div class="eta">🚚 Delivery in 27 mins</div>
+      </div>
+    </div>
+    <div class="store-card">
+      <img src="tammana.png" alt="Nisha Footwear" class="store-image" />
+      <div class="store-details">
+        <div class="store-name">Tammana</div>
+        <div class="store-desc">Latest footwear for all ages</div>
+        <div class="eta">🚚 Delivery in 29 mins</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="delivery-partners">
+    <h2>Delivery Partners</h2>
+    <div class="partner-logos">
+      <img src="ola.png" alt="Ola">
+      <img src="uber.png" alt="Uber">
+      <img src="Shadowfx.jpg" alt="InDrive">
+    </div>
+  </div>
+
+  <div class="about-section">
+    <div class="about-content">
+      <div class="about-left">
+        <h2>About Us</h2>
+        <p>
+          <b>WearNow</b> brings you the latest fashion from top brands and local stores, delivered lightning fast. Our mission is to make style accessible, convenient, and fun for everyone. Join our growing community and experience fashion like never before!
+        </p>
+        <div class="about-social">
+          <a href="https://instagram.com/" target="_blank" class="about-link"><i class="fab fa-instagram"></i></a>
+          <a href="https://facebook.com/" target="_blank" class="about-link"><i class="fab fa-facebook"></i></a>
+          <a href="https://twitter.com/" target="_blank" class="about-link"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+      <div class="about-right">
+        <div class="about-actions">
+          <a href="mailto:contact@wearnow.com" class="about-link"><i class="fas fa-envelope"></i> Contact Us</a>
+          <a href="#" class="about-link"><i class="fas fa-handshake"></i> Want to be a Partner?</a>
+        </div>
+        <div class="download-apps">
+          <span>Download our app:</span>
+          <div>
+            <a href="https://play.google.com/store" target="_blank">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play" class="store-badge">
+            </a>
+            <a href="https://www.apple.com/in/app-store/" target="_blank">
+              <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" class="store-badge appstore">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 WearNow. All rights reserved.
+  </footer>
+  <div id="storeModal" class="store-modal">
+  <div class="store-modal-content">
+    <span class="store-modal-close" id="storeModalClose">&times;</span>
+    <h2 id="modalStoreName">Store Name</h2>
+    <div id="modalProducts" class="modal-products">
+      <!-- Products will be injected here -->
+    </div>
+  </div>
+</div>
+<div id="storeFullPage" class="store-fullpage">
+  <div class="store-fullpage-header">
+    <span class="store-fullpage-close" id="storeFullPageClose">&times;</span>
+    <h2 id="fullPageStoreName">Store Name</h2>
+    <button class="store-sidebar-toggle" id="storeSidebarToggle">
+  <i class="fas fa-bars"></i> Categories
+</button>
+  </div>
+  <div class="store-fullpage-body">
+    <aside class="store-sidebar">
+      <h3>Categories</h3>
+      <ul id="storeCategories">
+        <li data-category="All" class="active">All</li>
+        <li data-category="Men">Men</li>
+        <li data-category="Women">Women</li>
+        <li data-category="Top">Top</li>
+        <li data-category="Bottom">Bottom</li>
+        <li data-category="Ethnic">Ethnic</li>
+        <li data-category="Kids">Kids</li>
+        <!-- Add more as needed -->
+      </ul>
+    </aside>
+    <div id="fullPageProducts" class="fullpage-products">
+      <!-- Products will be injected here -->
+    </div>
+  </div>
+</div>
+<div id="loginOverlay" class="login-overlay">
+  <div class="login-modal">
+    <span class="login-close" id="loginClose">&times;</span>
+    <h2>Sign In / Login</h2>
+    <form class="login-form">
+      <input type="text" placeholder="Username or Mobile Number" required>
+      <input type="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+      <div class="create-account-link">
+    New here? <a href="#" id="createAccountLink">Create account</a>
+  </div>
+    </form>
+  </div>
+</div>
+
+  <script src="script.js"></script>
+  <script>
+const storeFullPageProducts = {
+  "Fabindia": [
+    { name: "Cotton Shirt", type: "Shirt", category: "Men", img: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80" },
+    { name: "Kurta", type: "Ethnic", category: "Men", img: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=400&q=80" },
+    { name: "Blue Jeans", type: "Jeans", category: "Men", img: "https://images.unsplash.com/photo-1465101178521-c1a9136a3fd9?auto=format&fit=crop&w=400&q=80" },
+    { name: "Red Kurti", type: "Kurti", category: "Women", img: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" },
+    { name: "Palazzo", type: "Bottom", category: "Women", img: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80" },
+    { name: "Kids T-shirt", type: "Top", category: "Kids", img: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" },
+    { name: "Kids Jeans", type: "Bottom", category: "Kids", img: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80" },
+    { name: "Women Top", type: "Top", category: "Women", img: "https://images.unsplash.com/photo-1465101178521-c1a9136a3fd9?auto=format&fit=crop&w=400&q=80" },
+    { name: "Men T-shirt", type: "Top", category: "Men", img: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=400&q=80" },
+    { name: "Women Jeans", type: "Jeans", category: "Women", img: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80" },
+    { name: "Saree", type: "Ethnic", category: "Women", img: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" },
+    { name: "Men Shorts", type: "Bottom", category: "Men", img: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80" },
+    { name: "Kids Kurta", type: "Ethnic", category: "Kids", img: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" },
+    { name: "Dupatta", type: "Ethnic", category: "Women", img: "https://images.unsplash.com/photo-1465101178521-c1a9136a3fd9?auto=format&fit=crop&w=400&q=80" }
+  ],
+  "Manyavar": [
+    { name: "Sherwani", type: "Ethnic", img: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" },
+    { name: "Kurta Pajama", type: "Ethnic", img: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80" }
+  ],
+  "Biba": [
+    { name: "Red Kurti", type: "Kurti", img: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" },
+    { name: "Palazzo", type: "Bottom", img: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80" }
+  ],
+  // Add more stores and products as needed
+};
+
+let currentStore = "";
+
+function renderFullPageProducts(storeName, category = "All") {
+  const products = storeFullPageProducts[storeName] || [];
+  const filtered = category === "All"
+    ? products
+    : products.filter(p => p.category === category || p.type === category);
+  const fullPageProducts = document.getElementById('fullPageProducts');
+  fullPageProducts.innerHTML = filtered.length
+    ? filtered.map(p => `
+      <div class="product-card">
+        <img src="${p.img}" alt="${p.name}">
+        <div class="product-name">${p.name}</div>
+        <div class="product-type">${p.type}</div>
+      </div>
+    `).join('')
+    : `<div style="color:#ff4d6d;font-weight:600;">No products found in this category.</div>`;
+}
+
+document.querySelectorAll('.store-card').forEach(card => {
+  card.style.cursor = "pointer";
+  card.addEventListener('click', function() {
+    const storeName = card.querySelector('.store-name')?.textContent?.trim();
+    if (!storeName || !storeFullPageProducts[storeName]) return;
+    currentStore = storeName;
+    document.getElementById('fullPageStoreName').textContent = storeName;
+    renderFullPageProducts(storeName, "All");
+    document.getElementById('storeFullPage').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    // Reset category selection
+    document.querySelectorAll('#storeCategories li').forEach(li => li.classList.remove('active'));
+    document.querySelector('#storeCategories li[data-category="All"]').classList.add('active');
+  });
+});
+
+// Category filter
+document.querySelectorAll('#storeCategories li').forEach(li => {
+  li.addEventListener('click', function() {
+    document.querySelectorAll('#storeCategories li').forEach(l => l.classList.remove('active'));
+    li.classList.add('active');
+    renderFullPageProducts(currentStore, li.getAttribute('data-category'));
+  });
+});
+
+document.getElementById('storeFullPageClose').onclick = function() {
+  document.getElementById('storeFullPage').style.display = 'none';
+  document.body.style.overflow = '';
+};
+window.addEventListener('keydown', function(e) {
+  if (e.key === "Escape") {
+    document.getElementById('storeFullPage').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+});
+
+document.querySelector('.login-btn').onclick = function() {
+  document.getElementById('loginOverlay').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+};
+
+document.getElementById('loginClose').onclick = function() {
+  document.getElementById('loginOverlay').style.display = 'none';
+  document.body.style.overflow = '';
+};
+window.addEventListener('keydown', function(e) {
+  if (e.key === "Escape") {
+    document.getElementById('loginOverlay').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+});
+  </script>
+</body>
+</html>
