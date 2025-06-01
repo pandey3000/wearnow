@@ -167,22 +167,34 @@ header {
   }
 }
 @media (max-width: 700px) {
+  .top-bar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.7rem;
+  }
   .logo {
     margin-left: 0.7rem;
+    flex: 0 0 auto;
   }
   .auth-links {
     margin-right: 0.7rem;
+    flex: 0 0 auto;
+    width: auto;
+    align-items: flex-end;
   }
   .sidebar-toggle-btn {
     margin-left: 0.7rem;
     font-size: 0.95rem;
     padding: 0.6rem 0.9rem;
   }
-  .navbar-boundary {
-    height: 60px;
-  }
-  .top-bar {
-    padding-top: 0.7rem;
+  .auth-links .login-btn {
+    font-size: 0.85rem;
+    padding: 0.32rem 0.8rem;
+    border-radius: 18px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    gap: 0.3rem;
+    margin-top: 4px; /* Shift button up to align with logo */
   }
 }
 
