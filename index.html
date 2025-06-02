@@ -30,8 +30,14 @@
 
   <div class="hero-section">
     <!-- Decorative transparent PNGs -->
-    <img src="./assets/shirt.png" class="hero-img hero-img-left" alt="Shirt" />
-    <img src="./assets/dress.png" class="hero-img hero-img-right" alt="Dress" />
+    <div class="hero-img-row">
+      <img src="./assets/shirt.png" class="hero-img" alt="Shirt" />
+      <img src="./assets/dress.png" class="hero-img" alt="Shoes" />
+      <img src="./assets/tshirt.png" class="hero-img" alt="Dress" />
+      <img src="./assets/womendress.png" class="hero-img" alt="Shoes" />
+      <img src="./assets/shoes.png" class="hero-img" alt="Dress" />
+    </div>
+    <img src="./assets/model.png" class="hero-img hero-img-bottom-left" alt="Bag" />
 
     <nav class="category-sidebar" id="categorySidebar">
       <h3>Categories</h3>
@@ -416,6 +422,33 @@ window.addEventListener('keydown', function(e) {
   if (e.key === "Escape") {
     document.getElementById('loginOverlay').style.display = 'none';
     document.body.style.overflow = '';
+  }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const shoesImg = document.querySelector('.hero-img-row .hero-img:last-child');
+  if (shoesImg) {
+    shoesImg.classList.add('shoes-animate');
+    let lastMoveX = 0;
+    let ticking = false;
+
+    function onScroll() {
+      const scrollY = window.scrollY || window.pageYOffset;
+      // Move the image forward in X axis as you scroll down (max 120px, faster)
+      const moveX = Math.min(scrollY * 0.7, 120);
+      if (moveX !== lastMoveX) {
+        shoesImg.style.transform = `translateX(${moveX}px)`;
+        lastMoveX = moveX;
+      }
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        window.requestAnimationFrame(onScroll);
+        ticking = true;
+      }
+    });
   }
 });
   </script>

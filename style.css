@@ -7,7 +7,7 @@
 
 body {
   background: linear-gradient(135deg, #ff6ba3 0%, #a18cd1 100%) no-repeat;
-  background-size: 100% 520px;
+  background-size: 100% 800px; /* Increased from 520px to 800px */
   background-color: #fff6f9;
   color: #333;
 }
@@ -129,21 +129,91 @@ header {
 
 /* 3. Make sure central content starts below the navbar boundary */
 .hero-section {
-  margin-top: 0;
-  padding-top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding: 4.5rem 2rem 2rem 2rem; /* More top padding for space above images */
+  position: relative;
+  overflow: hidden;
+  min-height: 400px;
 }
 
-/* 4. Layout for top row: logo, category button, sign-in */
-.top-bar {
+/* Center the hero images at the top */
+.hero-img-row {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2.5rem;
   width: 100%;
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-top: 1.5rem;
-  padding-bottom: 0.5rem;
-  background: transparent;
+  margin-bottom: 2.5rem;
+  z-index: 2;
+  position: relative;
+}
+
+/* Stagger the hero images: up, down, up, down, up */
+.hero-img-row .hero-img:nth-child(1) {
+  margin-top: 0.5rem;
+}
+.hero-img-row .hero-img:nth-child(2) {
+  margin-top: 2.5rem;
+}
+.hero-img-row .hero-img:nth-child(3) {
+  margin-top: 0.5rem;
+}
+.hero-img-row .hero-img:nth-child(4) {
+  margin-top: 2.5rem;
+}
+.hero-img-row .hero-img:nth-child(5) {
+  margin-top: 0.5rem;
+}
+
+/* Responsive: reduce stagger on mobile */
+@media (max-width: 700px) {
+  .hero-img-row {
+    gap: 0.7rem;
+    margin-bottom: 1rem;
+  }
+  .hero-img-row .hero-img:nth-child(1),
+  .hero-img-row .hero-img:nth-child(3),
+  .hero-img-row .hero-img:nth-child(5) {
+    margin-top: 0.2rem;
+  }
+  .hero-img-row .hero-img:nth-child(2),
+  .hero-img-row .hero-img:nth-child(4) {
+    margin-top: 1rem;
+  }
+}
+
+.hero-img {
+  position: static;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.9;
+  max-width: 160px;
+  width: 18vw;
+  height: auto;
+  transition: opacity 0.3s;
+}
+
+/* Make only the last hero image (shoes.png) bigger */
+.hero-img-row .hero-img:last-child {
+  max-width: 280px;
+  width: 22vw;
+  min-width: 120px;
+  opacity: 1;
+}
+
+/* New class for bottom-left image */
+.hero-img-bottom-left {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  max-width: 240px;
+  width: 20vw;
+  opacity: 0.85;
+  z-index: 1;
+  pointer-events: none;
 }
 
 /* Responsive adjustments */
@@ -164,6 +234,22 @@ header {
   }
   .top-bar {
     padding-top: 1rem;
+  }
+  .hero-section {
+    padding-top: 3.2rem;
+  }
+  .hero-img-row {
+    gap: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  .hero-img {
+    max-width: 90px;
+    width: 24vw;
+    opacity: 0.7;
+  }
+  .hero-img-bottom-left {
+    max-width: 70px;
+    width: 18vw;
   }
 }
 @media (max-width: 700px) {
@@ -196,59 +282,21 @@ header {
     gap: 0.3rem;
     margin-top: 4px; /* Shift button up to align with logo */
   }
-}
-
-.hero-section {
-  background: none; /* Remove background here, header covers it */
-  padding-top: 0;
-  margin-top: 0;
-  display: flex;
-  gap: 2rem;
-  padding: 2rem;
-  position: relative;
-  overflow: hidden;
-  min-height: 400px;
-}
-
-/* Decorative transparent PNGs for hero section */
-.hero-img {
-  position: absolute;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0.9;
-  max-width: 200px;
-  width: 18vw;
-  height: auto;
-  transition: opacity 0.3s;
-}
-
-.hero-img-left {
-  left: 0;
-  bottom: 0;
-  top: auto;
-  transform: translateY(10%);
-}
-
-.hero-img-right {
-  right: 0;
-  top: 0;
-  bottom: auto;
-  transform: translateY(-10%);
-}
-
-@media (max-width: 900px) {
-  .hero-img {
-    max-width: 110px;
-    width: 24vw;
-    opacity: 0.5;
+  .hero-section {
+    padding-top: 2.2rem;
   }
-}
-
-@media (max-width: 700px) {
+  .hero-img-row {
+    gap: 0.7rem;
+    margin-bottom: 1rem;
+  }
   .hero-img {
-    max-width: 70px;
+    max-width: 50px;
     width: 18vw;
-    opacity: 0.5;
+    opacity: 0.7;
+  }
+  .hero-img-bottom-left {
+    max-width: 45px;
+    width: 20vw;
   }
 }
 
@@ -378,7 +426,7 @@ body > .hero-section {
 /* 6. Optional: If you want the gradient to extend even further down, you can add: */
 body {
   background: linear-gradient(135deg, #ff6ba3 0%, #a18cd1 100%) no-repeat;
-  background-size: 100% 520px;
+  background-size: 100% 800px;
   background-color: #fff6f9;
 }
 
@@ -1079,4 +1127,10 @@ footer {
     font-size: 0.75rem;
     margin-top: 0.2rem;
   }
+}
+
+/* Add animation for the shoes image when scrolling down */
+.hero-img-row .hero-img.shoes-animate {
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  will-change: transform;
 }
