@@ -475,8 +475,9 @@ body {
 }
 
 .carousel {
-  background: #fff;
-  padding: 1rem 2rem;
+  overflow: hidden;
+  width: 100%;
+  position: relative;
 }
 
 .carousel h2 {
@@ -486,14 +487,28 @@ body {
 
 .carousel-track {
   display: flex;
-  gap: 1rem;
-  overflow-x: auto;
+  gap: 1.5rem;
+  align-items: center;
+  /* The width should be enough to fit all images twice */
+  width: max-content;
+  animation: carouselScroll 15s linear infinite;
 }
 
 .carousel-track img {
-  height: 180px;
-  border-radius: 16px;
-  object-fit: cover;
+  height: 100px;
+  width: auto;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  flex-shrink: 0;
+}
+
+@keyframes carouselScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .store-container {
@@ -614,7 +629,7 @@ footer {
   display: flex;
   justify-content: center;
   gap: 2.5rem;
-  margin: 2rem 0 2.5rem 0;
+  margin: 2rem 0 2.5rem 0; /* Restore top and bottom margin */
   flex-wrap: wrap;
 }
 .trend-circle-group {
