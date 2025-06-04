@@ -139,6 +139,11 @@ header {
   min-height: 400px;
 }
 
+/* Add more space between the intro section and the carousel */
+.hero-section {
+  margin-bottom: 8.5rem; /* Increase this value for more space */
+}
+
 /* Center the hero images at the top */
 .hero-img-row {
   display: flex;
@@ -475,32 +480,34 @@ body {
 }
 
 .carousel {
-<<<<<<< HEAD
   overflow: hidden;
   width: 100%;
   position: relative;
-  margin-top: 8rem;
-=======
-  background: #fff;
-  padding: 1rem 2rem;
->>>>>>> ce303c2cfe5d726b7b628b4e00c43ead1c636005
-}
-
-.carousel h2 {
-  color: #ff4d6d;
-  margin-bottom: 1rem;
 }
 
 .carousel-track {
   display: flex;
-  gap: 1rem;
-  overflow-x: auto;
+  gap: 1.5rem;
+  align-items: center;
+  width: max-content;
+  animation: carouselScroll 15s linear infinite; /* Changed from 30s to 15s for faster speed */
 }
 
 .carousel-track img {
-  height: 180px;
-  border-radius: 16px;
-  object-fit: cover;
+  height: 100px;
+  width: auto;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  flex-shrink: 0;
+}
+
+@keyframes carouselScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .store-container {
@@ -1183,7 +1190,7 @@ footer {
 /* ====================== */
 
 /* Container - Won't affect other pages */
-.product-page-container {
+.product-page_container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
