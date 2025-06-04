@@ -242,6 +242,7 @@ header {
   }
   .hero-section {
     padding-top: 3.2rem;
+    margin-bottom: 8rem;
   }
   .hero-img-row {
     gap: 1.2rem;
@@ -289,6 +290,7 @@ header {
   }
   .hero-section {
     padding-top: 2.2rem;
+    margin-bottom: 15rem
   }
   .hero-img-row {
     gap: 0.7rem;
@@ -483,6 +485,9 @@ body {
   overflow: hidden;
   width: 100%;
   position: relative;
+  background: none;
+  margin-top: 0;         /* Remove any top margin */
+  margin-bottom: 2.5rem; /* Space below carousel */
 }
 
 .carousel-track {
