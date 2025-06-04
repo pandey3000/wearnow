@@ -475,8 +475,15 @@ body {
 }
 
 .carousel {
+<<<<<<< HEAD
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  margin-top: 8rem;
+=======
   background: #fff;
   padding: 1rem 2rem;
+>>>>>>> ce303c2cfe5d726b7b628b4e00c43ead1c636005
 }
 
 .carousel h2 {
