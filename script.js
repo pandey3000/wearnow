@@ -17,11 +17,11 @@ function closeSidebar() {
 
 // Store navigation functionality
 function setupStoreNavigation() {
-  document.querySelectorAll('.store-card').forEach(card => {
+  document.querySelectorAll('.store-card[data-store]').forEach(card => {
     card.addEventListener('click', function() {
-      const storeName = this.getAttribute('data-store');
-      if (storeName) {
-        window.location.href = `product.html?store=${storeName}`;
+      const store = card.getAttribute('data-store');
+      if (store) {
+        window.location.href = `product.html?store=${store}`;
       }
     });
   });
@@ -112,5 +112,68 @@ function init() {
 
 // Start the application
 document.addEventListener('DOMContentLoaded', init);
+
+// Add this script after your existing login modal JS
+
+document.querySelector('.login-btn').onclick = function() {
+  document.getElementById('loginOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+};
+
+document.getElementById('loginClose').onclick = function() {
+  document.getElementById('loginOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+};
+
+document.querySelector('.login-form').onsubmit = function(e) {
+  e.preventDefault();
+  const username = document.getElementById('login-username').value.trim();
+  const password = document.getElementById('login-password').value;
+  const overlay = document.createElement('div');
+  overlay.style.position = 'fixed';
+  overlay.style.top = 0;
+  overlay.style.left = 0;
+  overlay.style.width = '100vw';
+  overlay.style.height = '100vh';
+  overlay.style.background = 'rgba(0,0,0,0.35)';
+  overlay.style.display = 'flex';
+  overlay.style.alignItems = 'center';
+  overlay.style.justifyContent = 'center';
+  overlay.style.zIndex = 9999;
+
+  const popup = document.createElement('div');
+  popup.style.background = '#fff';
+  popup.style.padding = '2rem 2.5rem';
+  popup.style.borderRadius = '18px';
+  popup.style.boxShadow = '0 4px 32px rgba(0,0,0,0.18)';
+  popup.style.textAlign = 'center';
+  popup.style.fontSize = '1.2rem';
+  popup.style.color = '#333';
+
+  // Check for admin or roshan
+  if (
+    (username === 'admin' && password === 'shubham123') ||
+    (username === 'roshan' && password === 'roshan123')
+  ) {
+    const welcomeName = username.charAt(0).toUpperCase() + username.slice(1);
+    popup.innerHTML = `<strong>Login successful</strong><br>Welcome ${welcomeName}<br><br>
+      <button style="margin-top:1rem;padding:0.5rem 1.2rem;border-radius:22px;background:#ff4d6d;color:#fff;border:none;cursor:pointer;">OK</button>`;
+    popup.querySelector('button').onclick = function() {
+      document.body.removeChild(overlay);
+    };
+    document.getElementById('loginOverlay').style.display = 'none';
+    document.body.style.overflow = '';
+    document.body.appendChild(overlay);
+    overlay.appendChild(popup);
+  } else {
+    popup.innerHTML = `<strong style="color:#ff4d6d;">Invalid username or password</strong><br><br>
+      <button style="margin-top:1rem;padding:0.5rem 1.2rem;border-radius:22px;background:#ff4d6d;color:#fff;border:none;cursor:pointer;">OK</button>`;
+    popup.querySelector('button').onclick = function() {
+      document.body.removeChild(overlay);
+    };
+    document.body.appendChild(overlay);
+    overlay.appendChild(popup);
+  }
+};
 
 
