@@ -149,14 +149,18 @@ document.querySelector('.login-form').onsubmit = function(e) {
   popup.style.textAlign = 'center';
   popup.style.fontSize = '1.2rem';
   popup.style.color = '#333';
-  popup.innerHTML = `<strong>Login successful</strong><br>Welcome admin<br><br>
-    <button style="margin-top:1rem;padding:0.5rem 1.2rem;border-radius:22px;background:#ff4d6d;color:#fff;border:none;cursor:pointer;">OK</button>`;
 
-  popup.querySelector('button').onclick = function() {
-    document.body.removeChild(overlay);
-  };
-
-  if (username === 'admin' && password === 'shubham123') {
+  // Check for admin or roshan
+  if (
+    (username === 'admin' && password === 'shubham123') ||
+    (username === 'roshan' && password === 'roshan123')
+  ) {
+    const welcomeName = username.charAt(0).toUpperCase() + username.slice(1);
+    popup.innerHTML = `<strong>Login successful</strong><br>Welcome ${welcomeName}<br><br>
+      <button style="margin-top:1rem;padding:0.5rem 1.2rem;border-radius:22px;background:#ff4d6d;color:#fff;border:none;cursor:pointer;">OK</button>`;
+    popup.querySelector('button').onclick = function() {
+      document.body.removeChild(overlay);
+    };
     document.getElementById('loginOverlay').style.display = 'none';
     document.body.style.overflow = '';
     document.body.appendChild(overlay);
