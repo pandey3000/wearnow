@@ -17,11 +17,11 @@ function closeSidebar() {
 
 // Store navigation functionality
 function setupStoreNavigation() {
-  document.querySelectorAll('.store-card').forEach(card => {
+  document.querySelectorAll('.store-card[data-store]').forEach(card => {
     card.addEventListener('click', function() {
-      const storeName = this.getAttribute('data-store');
-      if (storeName) {
-        window.location.href = `product.html?store=${storeName}`;
+      const store = card.getAttribute('data-store');
+      if (store) {
+        window.location.href = `product.html?store=${store}`;
       }
     });
   });
