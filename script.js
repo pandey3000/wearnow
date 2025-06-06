@@ -134,48 +134,12 @@ function showUserProfile(username) {
   // Replace login button with username
   const authLinks = document.querySelector('.auth-links');
   if (authLinks) {
-    authLinks.innerHTML = `<span class="user-profile-btn" style="font-weight:600; color:#ff4d6d; cursor:pointer;"><i class="fas fa-user"></i> ${username.charAt(0).toUpperCase() + username.slice(1)}</span>`;
+    authLinks.innerHTML = `<div class="user-profile-btn" style="font-weight:600; color:#ff4d6d; cursor:pointer; margin-bottom:2rem"><i class="fas fa-user"></i> ${username.charAt(0).toUpperCase() + username.slice(1)}</div>`;
   }
 
   // If profile section doesn't exist, create it
-  let profileSection = document.getElementById('profileSection');
-  if (!profileSection) {
-    profileSection = document.createElement('div');
-    profileSection.id = 'profileSection';
-    profileSection.style.maxWidth = '420px';
-    profileSection.style.margin = '2rem auto';
-    profileSection.style.background = '#fff';
-    profileSection.style.borderRadius = '18px';
-    profileSection.style.boxShadow = '0 4px 24px rgba(0,0,0,0.10)';
-    profileSection.style.padding = '2rem 2.5rem';
-    profileSection.style.textAlign = 'center';
-    profileSection.style.fontSize = '1.1rem';
-    profileSection.style.color = '#333';
-    document.body.prepend(profileSection);
-  }
+  
 
-  // Example data for admin
-  if (username === 'admin') {
-    profileSection.innerHTML = `
-      <h2 style="color:#ff4d6d;">Admin Dashboard</h2>
-      <div style="margin:1.5rem 0;">
-        <div><b>Total Orders:</b> 124</div>
-        <div><b>Pending Orders:</b> 8</div>
-        <div><b>Delivered Orders:</b> 112</div>
-        <div><b>Cancelled Orders:</b> 4</div>
-        <div><b>Registered Users:</b> 57</div>
-      </div>
-    `;
-  } else if (username === 'roshan') {
-    profileSection.innerHTML = `
-      <h2 style="color:#ff4d6d;">Welcome, Roshan</h2>
-      <div style="margin:1.5rem 0;">
-        <div><b>Your Orders:</b> 5</div>
-        <div><b>Pending:</b> 1</div>
-        <div><b>Delivered:</b> 4</div>
-      </div>
-    `;
-  }
 }
 
 // Login form submit handler
@@ -293,8 +257,7 @@ document.getElementById('logoutBtnSidebar').onclick = function() {
     `<a href="#" class="login-btn"><i class="fas fa-user"></i> Sign In / Login</a>`;
   document.getElementById('profileSidebar').classList.remove('active');
   document.getElementById('dashboardModal').classList.remove('active');
-  const profileSection = document.getElementById('profileSection');
-  if (profileSection) profileSection.remove();
+  
   currentUser = null;
 };
 

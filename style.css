@@ -307,6 +307,54 @@ header {
   }
 }
 
+/* --- Responsive Hero Section for Mobile --- */
+@media (max-width: 700px) {
+  .hero-section {
+    padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+    margin-bottom: 7rem;
+    min-height: 320px;
+    gap: 0.5rem;
+  }
+  .hero-img-row {
+    gap: 0.4rem;
+    margin-bottom: 0.7rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .hero-img {
+    max-width: 48px;
+    width: 16vw;
+    opacity: 0.8;
+  }
+  .hero-img-row .hero-img:last-child {
+    max-width: 80px;
+    width: 22vw;
+    min-width: 60px;
+  }
+  .intro-section {
+    margin: 0 auto;
+    padding: 0 0.5rem;
+    text-align: center;
+  }
+  .intro-section h1 {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+  }
+  .intro-section p {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .search-bar {
+    margin-top: 0.7rem;
+  }
+  .search-bar input {
+    font-size: 0.95rem;
+    padding: 0.6rem 0.8rem;
+    max-width: 95vw;
+  }
+}
+
 .category-sidebar {
   width: 200px;
   background: #fff;
@@ -486,8 +534,8 @@ body {
   width: 100%;
   position: relative;
   background: none;
-  margin-top: 0;         /* Remove any top margin */
-  margin-bottom: 2.5rem; /* Space below carousel */
+  margin-top: 4rem;        /* Increased from 0 to 4rem for more space above */
+  margin-bottom: 2.5rem;   /* Space below carousel */
 }
 
 .carousel-track {

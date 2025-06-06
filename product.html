@@ -34,6 +34,25 @@
         padding: 10px;
       }
     }
+
+    /* Make product images fit inside their container without cropping */
+    .product-image-container {
+      width: 100%;
+      aspect-ratio: 1/1; /* Makes the container square */
+      background: #f8f8f8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .product-image {
+      width: 90%;
+      height: 90%;
+      object-fit: contain;   /* Ensures the whole image is visible, not cropped */
+      object-position: center;
+      display: block;
+    }
   </style>
 </head>
 <body>
