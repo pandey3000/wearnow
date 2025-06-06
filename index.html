@@ -306,6 +306,29 @@
   </div>
 </div>
 
+  <!-- Profile Sidebar -->
+<div id="profileSidebar" class="profile-sidebar">
+  <div class="profile-sidebar-content">
+    <span class="profile-sidebar-close" id="profileSidebarClose">&times;</span>
+    <div class="profile-sidebar-user">
+      <i class="fas fa-user"></i>
+      <span id="sidebarUsername"></span>
+    </div>
+    <ul class="profile-sidebar-menu">
+      <li id="dashboardBtn"><i class="fas fa-tachometer-alt"></i> Dashboard</li>
+      <li id="logoutBtnSidebar"><i class="fas fa-sign-out-alt"></i> Logout</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Dashboard Modal -->
+<div id="dashboardModal" class="dashboard-modal">
+  <div class="dashboard-modal-content" id="dashboardContent">
+    <span class="dashboard-modal-close" id="dashboardModalClose">&times;</span>
+    <!-- Dashboard content will be injected here -->
+  </div>
+</div>
+
   <script src="script.js"></script>
   <script>
 const storeFullPageProducts = {
