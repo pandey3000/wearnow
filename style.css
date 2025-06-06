@@ -289,30 +289,21 @@ header {
     margin-top: 4px; /* Shift button up to align with logo */
   }
   .hero-section {
-    padding-top: 7rem !important; /* Shift all hero-section content further down on mobile */
-    margin-bottom: 10rem;
+    padding-top: 2.2rem;
+    margin-bottom: 15rem
   }
-  .intro-section h1 {
-    font-size: 1.1rem;      /* Reduced heading size */
-    margin-bottom: 0.4rem;
-  }
-  .intro-section p {
-    font-size: 0.85rem;     /* Reduced paragraph size */
-    margin-bottom: 0.4rem;
+  .hero-img-row {
+    gap: 0.7rem;
+    margin-bottom: 1rem;
   }
   .hero-img {
-    max-width: 90px;        /* Increased image size */
-    width: 28vw;
-    opacity: 0.85;
-  }
-  .hero-img-row .hero-img:last-child {
-    max-width: 140px;       /* Increased last image size */
-    width: 38vw;
-    min-width: 80px;
+    max-width: 50px;
+    width: 18vw;
+    opacity: 0.7;
   }
   .hero-img-bottom-left {
-    max-width: 70px;
-    width: 28vw;
+    max-width: 45px;
+    width: 20vw;
   }
 }
 
@@ -495,8 +486,8 @@ body {
   width: 100%;
   position: relative;
   background: none;
-  margin-top: 4rem;        /* Increased from 0 to 4rem for more space above */
-  margin-bottom: 2.5rem;   /* Space below carousel */
+  margin-top: 0;         /* Remove any top margin */
+  margin-bottom: 2.5rem; /* Space below carousel */
 }
 
 .carousel-track {
