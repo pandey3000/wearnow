@@ -513,6 +513,15 @@ onAuthStateChanged(auth, user => {
     }
   }
 });
+
+document.querySelectorAll('.store-card[data-store]').forEach(card => {
+  card.addEventListener('click', function() {
+    const store = card.getAttribute('data-store');
+    if (store) {
+      window.location.href = `product.html?store=${store}`;
+    }
+  });
+});
 </script>
 
 
