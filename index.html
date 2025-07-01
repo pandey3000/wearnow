@@ -332,7 +332,7 @@
 <!-- Your scripts -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } 
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, onAuthStateChanged } 
   from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
 
 const firebaseConfig = {
@@ -354,11 +354,16 @@ function renderLoginForm() {
   document.getElementById('authForms').innerHTML = `
     <h2 style="color:#ff4d6d; margin-bottom:1rem;">Login</h2>
     <form id="loginForm" style="display:flex; flex-direction:column;">
-      <input type="email" id="loginEmail" placeholder="Email" required style="padding:0.7rem 1rem; margin-bottom:1rem; border-radius:8px; border:1px solid #ccc;">
-      <input type="password" id="loginPassword" placeholder="Password" required style="padding:0.7rem 1rem; margin-bottom:1rem; border-radius:8px; border:1px solid #ccc;">
-      <button type="submit" style="padding:0.7rem; border-radius:20px; background:#ff4d6d; color:white; border:none; cursor:pointer;">Login</button>
+      <input type="email" id="loginEmail" placeholder="Email" required style="padding:0.7rem 1rem; margin-bottom:1rem;">
+      <input type="password" id="loginPassword" placeholder="Password" required style="padding:0.7rem 1rem; margin-bottom:1rem;">
+      <button type="submit" style="padding:0.7rem; border-radius:20px; background:#ff4d6d; color:white;">Login</button>
     </form>
-    <p style="margin-top:1rem; text-align:center;">Don't have an account? <a href="#" id="showSignup" style="color:#ff4d6d;">Sign up</a></p>
+    <p style="margin-top:0.8rem; text-align:center;">
+      <a href="#" id="showReset" style="color:#ff4d6d;">Forgot password?</a>
+    </p>
+    <p style="margin-top:1rem; text-align:center;">
+      Don't have an account? <a href="#" id="showSignup" style="color:#ff4d6d;">Sign up</a>
+    </p>
   `;
 }
 
@@ -366,11 +371,26 @@ function renderSignupForm() {
   document.getElementById('authForms').innerHTML = `
     <h2 style="color:#ff4d6d; margin-bottom:1rem;">Sign Up</h2>
     <form id="signupForm" style="display:flex; flex-direction:column;">
-      <input type="email" id="signupEmail" placeholder="Email" required style="padding:0.7rem 1rem; margin-bottom:1rem; border-radius:8px; border:1px solid #ccc;">
-      <input type="password" id="signupPassword" placeholder="Password" required style="padding:0.7rem 1rem; margin-bottom:1rem; border-radius:8px; border:1px solid #ccc;">
-      <button type="submit" style="padding:0.7rem; border-radius:20px; background:#ff4d6d; color:white; border:none; cursor:pointer;">Sign Up</button>
+      <input type="email" id="signupEmail" placeholder="Email" required style="padding:0.7rem 1rem; margin-bottom:1rem;">
+      <input type="password" id="signupPassword" placeholder="Password" required style="padding:0.7rem 1rem; margin-bottom:1rem;">
+      <button type="submit" style="padding:0.7rem; border-radius:20px; background:#ff4d6d; color:white;">Sign Up</button>
     </form>
-    <p style="margin-top:1rem; text-align:center;">Already have an account? <a href="#" id="showLogin" style="color:#ff4d6d;">Login</a></p>
+    <p style="margin-top:1rem; text-align:center;">
+      Already have an account? <a href="#" id="showLogin" style="color:#ff4d6d;">Login</a>
+    </p>
+  `;
+}
+
+function renderResetForm() {
+  document.getElementById('authForms').innerHTML = `
+    <h2 style="color:#ff4d6d; margin-bottom:1rem;">Reset Password</h2>
+    <form id="resetForm" style="display:flex; flex-direction:column;">
+      <input type="email" id="resetEmail" placeholder="Enter your email" required style="padding:0.7rem 1rem; margin-bottom:1rem;">
+      <button type="submit" style="padding:0.7rem; border-radius:20px; background:#ff4d6d; color:white;">Send Reset Email</button>
+    </form>
+    <p style="margin-top:1rem; text-align:center;">
+      <a href="#" id="showLogin" style="color:#ff4d6d;">Back to Login</a>
+    </p>
   `;
 }
 
@@ -383,9 +403,14 @@ function attachAuthEvents() {
       const password = document.getElementById('loginPassword').value;
 
       try {
-        await signInWithEmailAndPassword(auth, email, password);
-        alert("✅ Logged in: " + email);
-        loginOverlay.classList.remove('active');
+        const result = await signInWithEmailAndPassword(auth, email, password);
+        if (!result.user.emailVerified) {
+          alert("⚠ Please verify your email first. Check your inbox.");
+          await auth.signOut();
+        } else {
+          alert("✅ Logged in: " + email);
+          loginOverlay.classList.remove('active');
+        }
       } catch (err) {
         alert("❌ " + err.message);
       }
@@ -400,8 +425,10 @@ function attachAuthEvents() {
       const password = document.getElementById('signupPassword').value;
 
       try {
-        await createUserWithEmailAndPassword(auth, email, password);
-        alert("✅ Signed up & logged in: " + email);
+        const result = await createUserWithEmailAndPassword(auth, email, password);
+        await sendEmailVerification(result.user);
+        alert("✅ Signed up. Check your email to verify before login.");
+        await auth.signOut(); // 🚀 forces logout immediately after signup
         loginOverlay.classList.remove('active');
       } catch (err) {
         alert("❌ " + err.message);
@@ -409,22 +436,36 @@ function attachAuthEvents() {
     };
   }
 
-  const showSignup = document.getElementById('showSignup');
-  if (showSignup) {
-    showSignup.addEventListener('click', e => {
+  const resetForm = document.getElementById('resetForm');
+  if (resetForm) {
+    resetForm.onsubmit = async (e) => {
       e.preventDefault();
-      renderSignupForm();
-      attachAuthEvents();
-    });
+      const email = document.getElementById('resetEmail').value;
+      try {
+        await sendPasswordResetEmail(auth, email);
+        alert("📧 Password reset email sent. Check your inbox.");
+        renderLoginForm();
+        attachAuthEvents();
+      } catch (err) {
+        alert("❌ " + err.message);
+      }
+    };
   }
 
-  const showLogin = document.getElementById('showLogin');
-  if (showLogin) {
-    showLogin.addEventListener('click', e => {
-      e.preventDefault();
-      renderLoginForm();
-      attachAuthEvents();
-    });
+  if (document.getElementById('showSignup')) {
+    document.getElementById('showSignup').onclick = e => {
+      e.preventDefault(); renderSignupForm(); attachAuthEvents();
+    };
+  }
+  if (document.getElementById('showLogin')) {
+    document.getElementById('showLogin').onclick = e => {
+      e.preventDefault(); renderLoginForm(); attachAuthEvents();
+    };
+  }
+  if (document.getElementById('showReset')) {
+    document.getElementById('showReset').onclick = e => {
+      e.preventDefault(); renderResetForm(); attachAuthEvents();
+    };
   }
 }
 
@@ -438,72 +479,64 @@ document.querySelector('.login-btn').addEventListener('click', e => {
 loginClose.addEventListener('click', () => {
   loginOverlay.classList.remove('active');
 });
-
 window.addEventListener('keydown', e => {
   if (e.key === "Escape") loginOverlay.classList.remove('active');
 });
 
-// Update top nav + sidebar on login
 onAuthStateChanged(auth, user => {
   if (user) {
     console.log("✅ User logged in:", user.email);
-
     const authLinks = document.querySelector('.auth-links');
     if (authLinks) {
-      authLinks.innerHTML = `<div class="user-profile-btn" 
-        style="font-weight:600; color:#ff4d6d; cursor:pointer; margin-bottom:2rem">
-        <i class="fas fa-user"></i> ${user.email.split('@')[0]}
-      </div>`;
+      authLinks.innerHTML = `
+        <div class="user-profile-btn" 
+          style="font-weight:600; color:#ff4d6d; cursor:pointer; margin-bottom:2rem">
+          <i class="fas fa-user"></i> ${user.email.split('@')[0]}
+        </div>`;
     }
-
-    // Setup sidebar
     document.body.addEventListener('click', function(e) {
       const userBtn = document.querySelector('.user-profile-btn');
       const sidebar = document.getElementById('profileSidebar');
-
       if (userBtn && userBtn.contains(e.target)) {
         sidebar.classList.add('active');
         document.getElementById('sidebarUsername').textContent = user.email.split('@')[0];
       }
-
-      if (sidebar && sidebar.classList.contains('active') &&
+      if (sidebar && sidebar.classList.contains('active') && 
           !sidebar.contains(e.target) && !userBtn.contains(e.target)) {
         sidebar.classList.remove('active');
       }
     });
-
     document.getElementById('profileSidebarClose').onclick = function() {
       document.getElementById('profileSidebar').classList.remove('active');
     };
-
     document.getElementById('dashboardBtn').onclick = function() {
       document.getElementById('dashboardModal').classList.add('active');
       const dashboardContent = document.getElementById('dashboardContent');
-
-      dashboardContent.innerHTML = `<span class="dashboard-modal-close" id="dashboardModalClose">&times;</span>
+      dashboardContent.innerHTML = `
+        <span class="dashboard-modal-close" id="dashboardModalClose">&times;</span>
         <h2 style="color:#ff4d6d;">Welcome, ${user.email.split('@')[0]}</h2>
         <div style="margin:1.5rem 0;">
           <div><b>Your Orders:</b> 5</div>
           <div><b>Pending:</b> 1</div>
           <div><b>Delivered:</b> 4</div>
         </div>`;
-
       document.getElementById('dashboardModalClose').onclick = function() {
         document.getElementById('dashboardModal').classList.remove('active');
       };
     };
-
     document.getElementById('logoutBtnSidebar').onclick = function() {
       auth.signOut().then(() => {
         window.location.reload();
       });
     };
-
   } else {
     console.log("🚪 User logged out");
     const authLinks = document.querySelector('.auth-links');
     if (authLinks) {
-      authLinks.innerHTML = `<a href="#" class="login-btn"><i class="fas fa-user"></i> Sign In / Login</a>`;
+      authLinks.innerHTML = `
+        <a href="#" class="login-btn">
+          <i class="fas fa-user"></i> Sign In / Login
+        </a>`;
       document.querySelector('.login-btn').addEventListener('click', e => {
         e.preventDefault();
         renderLoginForm();
@@ -513,6 +546,7 @@ onAuthStateChanged(auth, user => {
     }
   }
 });
+</script>
 
 document.querySelectorAll('.store-card[data-store]').forEach(card => {
   card.addEventListener('click', function() {
