@@ -294,19 +294,19 @@
     </div>
   </div>
 </div>
+
+<!-- Login Overlay -->
 <div id="loginOverlay" class="login-overlay">
   <div class="login-modal">
     <span class="login-close" id="loginClose">&times;</span>
-    <h2>Sign In / Login</h2>
-    <form class="login-form">
-      <input type="text" id="login-username" placeholder="Username" required>
-      <input type="password" id="login-password" placeholder="Password" required>
-      <button type="submit">Login</button>
-    </form>
+    <div id="authForms">
+      <!-- Login or signup form will be injected by JS -->
+    </div>
   </div>
 </div>
 
-  <!-- Profile Sidebar -->
+
+<!-- Profile Sidebar -->
 <div id="profileSidebar" class="profile-sidebar">
   <div class="profile-sidebar-content">
     <span class="profile-sidebar-close" id="profileSidebarClose">&times;</span>
@@ -329,133 +329,195 @@
   </div>
 </div>
 
-  <script src="script.js"></script>
-  <script>
-const storeFullPageProducts = {
-  "Fabindia": [
-    { name: "Cotton Shirt", type: "Shirt", category: "Men", img: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80" },
-    { name: "Kurta", type: "Ethnic", category: "Men", img: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=400&q=80" },
-    { name: "Blue Jeans", type: "Jeans", category: "Men", img: "https://images.unsplash.com/photo-1465101178521-c1a9136a3fd9?auto=format&fit=crop&w=400&q=80" },
-    { name: "Red Kurti", type: "Kurti", category: "Women", img: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" },
-    { name: "Palazzo", type: "Bottom", category: "Women", img: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80" },
-    { name: "Kids T-shirt", type: "Top", category: "Kids", img: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" },
-    { name: "Kids Jeans", type: "Bottom", category: "Kids", img: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80" },
-    { name: "Women Top", type: "Top", category: "Women", img: "https://images.unsplash.com/photo-1465101178521-c1a9136a3fd9?auto=format&fit=crop&w=400&q=80" },
-    { name: "Men T-shirt", type: "Top", category: "Men", img: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=400&q=80" },
-    { name: "Women Jeans", type: "Jeans", category: "Women", img: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80" },
-    { name: "Saree", type: "Ethnic", category: "Women", img: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" },
-    { name: "Men Shorts", type: "Bottom", category: "Men", img: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80" },
-    { name: "Kids Kurta", type: "Ethnic", category: "Kids", img: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" },
-    { name: "Dupatta", type: "Ethnic", category: "Women", img: "https://images.unsplash.com/photo-1465101178521-c1a9136a3fd9?auto=format&fit=crop&w=400&q=80" }
-  ],
-  "Manyavar": [
-    { name: "Sherwani", type: "Ethnic", img: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" },
-    { name: "Kurta Pajama", type: "Ethnic", img: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80" }
-  ],
-  "Biba": [
-    { name: "Red Kurti", type: "Kurti", img: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" },
-    { name: "Palazzo", type: "Bottom", img: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80" }
-  ],
-  // Add more stores and products as needed
+<!-- Your scripts -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } 
+  from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB7Jtb737XTIeI_hxR8tI_DvkJZPpDk4qo",
+  authDomain: "wearnow-33e7b.firebaseapp.com",
+  projectId: "wearnow-33e7b",
+  storageBucket: "wearnow-33e7b.appspot.com",
+  messagingSenderId: "709149937002",
+  appId: "1:709149937002:web:baacfd94504dfd6abea913"
 };
 
-let currentStore = "";
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-function renderFullPageProducts(storeName, category = "All") {
-  const products = storeFullPageProducts[storeName] || [];
-  const filtered = category === "All"
-    ? products
-    : products.filter(p => p.category === category || p.type === category);
-  const fullPageProducts = document.getElementById('fullPageProducts');
-  fullPageProducts.innerHTML = filtered.length
-    ? filtered.map(p => `
-      <div class="product-card">
-        <img src="${p.img}" alt="${p.name}">
-        <div class="product-name">${p.name}</div>
-        <div class="product-type">${p.type}</div>
-      </div>
-    `).join('')
-    : `<div style="color:#ff4d6d;font-weight:600;">No products found in this category.</div>`;
+const loginOverlay = document.getElementById('loginOverlay');
+const loginClose = document.getElementById('loginClose');
+
+function renderLoginForm() {
+  document.getElementById('authForms').innerHTML = `
+    <h2 style="color:#ff4d6d; margin-bottom:1rem;">Login</h2>
+    <form id="loginForm" style="display:flex; flex-direction:column;">
+      <input type="email" id="loginEmail" placeholder="Email" required style="padding:0.7rem 1rem; margin-bottom:1rem; border-radius:8px; border:1px solid #ccc;">
+      <input type="password" id="loginPassword" placeholder="Password" required style="padding:0.7rem 1rem; margin-bottom:1rem; border-radius:8px; border:1px solid #ccc;">
+      <button type="submit" style="padding:0.7rem; border-radius:20px; background:#ff4d6d; color:white; border:none; cursor:pointer;">Login</button>
+    </form>
+    <p style="margin-top:1rem; text-align:center;">Don't have an account? <a href="#" id="showSignup" style="color:#ff4d6d;">Sign up</a></p>
+  `;
 }
 
-document.querySelectorAll('.store-card').forEach(card => {
-  card.style.cursor = "pointer";
-  card.addEventListener('click', function() {
-    const storeName = card.querySelector('.store-name')?.textContent?.trim();
-    if (!storeName || !storeFullPageProducts[storeName]) return;
-    currentStore = storeName;
-    document.getElementById('fullPageStoreName').textContent = storeName;
-    renderFullPageProducts(storeName, "All");
-    document.getElementById('storeFullPage').style.display = 'block';
-    document.body.style.overflow = 'hidden';
-    // Reset category selection
-    document.querySelectorAll('#storeCategories li').forEach(li => li.classList.remove('active'));
-    document.querySelector('#storeCategories li[data-category="All"]').classList.add('active');
-  });
-});
+function renderSignupForm() {
+  document.getElementById('authForms').innerHTML = `
+    <h2 style="color:#ff4d6d; margin-bottom:1rem;">Sign Up</h2>
+    <form id="signupForm" style="display:flex; flex-direction:column;">
+      <input type="email" id="signupEmail" placeholder="Email" required style="padding:0.7rem 1rem; margin-bottom:1rem; border-radius:8px; border:1px solid #ccc;">
+      <input type="password" id="signupPassword" placeholder="Password" required style="padding:0.7rem 1rem; margin-bottom:1rem; border-radius:8px; border:1px solid #ccc;">
+      <button type="submit" style="padding:0.7rem; border-radius:20px; background:#ff4d6d; color:white; border:none; cursor:pointer;">Sign Up</button>
+    </form>
+    <p style="margin-top:1rem; text-align:center;">Already have an account? <a href="#" id="showLogin" style="color:#ff4d6d;">Login</a></p>
+  `;
+}
 
-// Category filter
-document.querySelectorAll('#storeCategories li').forEach(li => {
-  li.addEventListener('click', function() {
-    document.querySelectorAll('#storeCategories li').forEach(l => l.classList.remove('active'));
-    li.classList.add('active');
-    renderFullPageProducts(currentStore, li.getAttribute('data-category'));
-  });
-});
+function attachAuthEvents() {
+  const loginForm = document.getElementById('loginForm');
+  if (loginForm) {
+    loginForm.onsubmit = async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
 
-document.getElementById('storeFullPageClose').onclick = function() {
-  document.getElementById('storeFullPage').style.display = 'none';
-  document.body.style.overflow = '';
-};
-window.addEventListener('keydown', function(e) {
-  if (e.key === "Escape") {
-    document.getElementById('storeFullPage').style.display = 'none';
-    document.body.style.overflow = '';
-  }
-});
-
-document.querySelector('.login-btn').onclick = function() {
-  document.getElementById('loginOverlay').style.display = 'block';
-  document.body.style.overflow = 'hidden';
-};
-
-document.getElementById('loginClose').onclick = function() {
-  document.getElementById('loginOverlay').style.display = 'none';
-  document.body.style.overflow = '';
-};
-window.addEventListener('keydown', function(e) {
-  if (e.key === "Escape") {
-    document.getElementById('loginOverlay').style.display = 'none';
-    document.body.style.overflow = '';
-  }
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-  const shoesImg = document.querySelector('.hero-img-row .hero-img:last-child');
-  if (shoesImg) {
-    shoesImg.classList.add('shoes-animate');
-    let lastMoveX = 0;
-    let ticking = false;
-
-    function onScroll() {
-      const scrollY = window.scrollY || window.pageYOffset;
-      // Move the image forward in X axis as you scroll down (max 120px, faster)
-      const moveX = Math.min(scrollY * 0.7, 120);
-      if (moveX !== lastMoveX) {
-        shoesImg.style.transform = `translateX(${moveX}px)`;
-        lastMoveX = moveX;
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        alert("✅ Logged in: " + email);
+        loginOverlay.classList.remove('active');
+      } catch (err) {
+        alert("❌ " + err.message);
       }
-      ticking = false;
-    }
+    };
+  }
 
-    window.addEventListener('scroll', function() {
-      if (!ticking) {
-        window.requestAnimationFrame(onScroll);
-        ticking = true;
+  const signupForm = document.getElementById('signupForm');
+  if (signupForm) {
+    signupForm.onsubmit = async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('signupEmail').value;
+      const password = document.getElementById('signupPassword').value;
+
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        alert("✅ Signed up & logged in: " + email);
+        loginOverlay.classList.remove('active');
+      } catch (err) {
+        alert("❌ " + err.message);
       }
+    };
+  }
+
+  const showSignup = document.getElementById('showSignup');
+  if (showSignup) {
+    showSignup.addEventListener('click', e => {
+      e.preventDefault();
+      renderSignupForm();
+      attachAuthEvents();
     });
   }
+
+  const showLogin = document.getElementById('showLogin');
+  if (showLogin) {
+    showLogin.addEventListener('click', e => {
+      e.preventDefault();
+      renderLoginForm();
+      attachAuthEvents();
+    });
+  }
+}
+
+document.querySelector('.login-btn').addEventListener('click', e => {
+  e.preventDefault();
+  renderLoginForm();
+  attachAuthEvents();
+  loginOverlay.classList.add('active');
 });
-  </script>
+
+loginClose.addEventListener('click', () => {
+  loginOverlay.classList.remove('active');
+});
+
+window.addEventListener('keydown', e => {
+  if (e.key === "Escape") loginOverlay.classList.remove('active');
+});
+
+// Update top nav + sidebar on login
+onAuthStateChanged(auth, user => {
+  if (user) {
+    console.log("✅ User logged in:", user.email);
+
+    const authLinks = document.querySelector('.auth-links');
+    if (authLinks) {
+      authLinks.innerHTML = `<div class="user-profile-btn" 
+        style="font-weight:600; color:#ff4d6d; cursor:pointer; margin-bottom:2rem">
+        <i class="fas fa-user"></i> ${user.email.split('@')[0]}
+      </div>`;
+    }
+
+    // Setup sidebar
+    document.body.addEventListener('click', function(e) {
+      const userBtn = document.querySelector('.user-profile-btn');
+      const sidebar = document.getElementById('profileSidebar');
+
+      if (userBtn && userBtn.contains(e.target)) {
+        sidebar.classList.add('active');
+        document.getElementById('sidebarUsername').textContent = user.email.split('@')[0];
+      }
+
+      if (sidebar && sidebar.classList.contains('active') &&
+          !sidebar.contains(e.target) && !userBtn.contains(e.target)) {
+        sidebar.classList.remove('active');
+      }
+    });
+
+    document.getElementById('profileSidebarClose').onclick = function() {
+      document.getElementById('profileSidebar').classList.remove('active');
+    };
+
+    document.getElementById('dashboardBtn').onclick = function() {
+      document.getElementById('dashboardModal').classList.add('active');
+      const dashboardContent = document.getElementById('dashboardContent');
+
+      dashboardContent.innerHTML = `<span class="dashboard-modal-close" id="dashboardModalClose">&times;</span>
+        <h2 style="color:#ff4d6d;">Welcome, ${user.email.split('@')[0]}</h2>
+        <div style="margin:1.5rem 0;">
+          <div><b>Your Orders:</b> 5</div>
+          <div><b>Pending:</b> 1</div>
+          <div><b>Delivered:</b> 4</div>
+        </div>`;
+
+      document.getElementById('dashboardModalClose').onclick = function() {
+        document.getElementById('dashboardModal').classList.remove('active');
+      };
+    };
+
+    document.getElementById('logoutBtnSidebar').onclick = function() {
+      auth.signOut().then(() => {
+        window.location.reload();
+      });
+    };
+
+  } else {
+    console.log("🚪 User logged out");
+    const authLinks = document.querySelector('.auth-links');
+    if (authLinks) {
+      authLinks.innerHTML = `<a href="#" class="login-btn"><i class="fas fa-user"></i> Sign In / Login</a>`;
+      document.querySelector('.login-btn').addEventListener('click', e => {
+        e.preventDefault();
+        renderLoginForm();
+        attachAuthEvents();
+        loginOverlay.classList.add('active');
+      });
+    }
+  }
+});
+</script>
+
+
+</script>
+
 </body>
 </html>
+

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>WearNow Test Login</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    .login-overlay { 
+      position: fixed; top:0; left:0; width:100%; height:100%;
+      background: rgba(0,0,0,0.5); display:none; align-items:center; justify-content:center;
+    }
+    .login-overlay.active { display: flex; }
+    .login-modal {
+      background: #fff; padding: 2rem; border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+<!-- Auth Link -->
+<div class="auth-links">
+  <a href="#" class="login-btn">Sign In / Login</a>
+</div>
+
+<!-- Login Overlay -->
+<div id="loginOverlay" class="login-overlay">
+  <div class="login-modal">
+    <span id="loginClose" style="float:right;cursor:pointer;">&times;</span>
+    <h2>Sign In / Login</h2>
+    <form class="login-form">
+      <input type="email" id="login-username" placeholder="Email" required><br><br>
+      <input type="password" id="login-password" placeholder="Password" required><br><br>
+      <button type="submit">Login / Signup</button>
+    </form>
+  </div>
+</div>
+
+<script type="module">
+// ====== Firebase Setup =======
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } 
+  from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB7Jtb737XTIeI_hxR8tI_DvkJZPpDk4qo",
+  authDomain: "wearnow-33e7b.firebaseapp.com",
+  projectId: "wearnow-33e7b",
+  storageBucket: "wearnow-33e7b.firebasestorage.app",
+  messagingSenderId: "709149937002",
+  appId: "1:709149937002:web:baacfd94504dfd6abea913"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// ====== UI Behavior =======
+const loginOverlay = document.getElementById('loginOverlay');
+const loginBtn = document.querySelector('.login-btn');
+const loginClose = document.getElementById('loginClose');
+
+loginBtn.addEventListener('click', e => {
+  e.preventDefault();
+  loginOverlay.classList.add('active');
+});
+
+loginClose.addEventListener('click', () => {
+  loginOverlay.classList.remove('active');
+});
+
+window.addEventListener('keydown', e => {
+  if (e.key === "Escape") loginOverlay.classList.remove('active');
+});
+
+// ====== Login Form =======
+document.querySelector('.login-form').onsubmit = async function(e) {
+  e.preventDefault();
+  const email = document.getElementById('login-username').value;
+  const password = document.getElementById('login-password').value;
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    alert("✅ Logged in: " + email);
+    loginOverlay.classList.remove('active');
+  } catch (err) {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      alert("✅ Signed up: " + email);
+      loginOverlay.classList.remove('active');
+    } catch (signupErr) {
+      alert("❌ " + signupErr.message);
+    }
+  }
+};
+
+// ====== Auto detect user =======
+onAuthStateChanged(auth, user => {
+  if (user) console.log("✅ User logged in:", user.email);
+  else console.log("🚪 User logged out");
+});
+</script>
+</body>
+</html>

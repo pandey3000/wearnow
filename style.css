@@ -1470,21 +1470,21 @@ footer {
   max-width: 500px;
 }
 
-/* Profile Sidebar */
 .profile-sidebar {
-  display: none;
   position: fixed;
-  top: 0; right: 0;
+  top: 0;
+  right: -320px; /* start offscreen */
   width: 320px;
   height: 100vh;
   background: #fff;
   box-shadow: -4px 0 24px rgba(0,0,0,0.12);
   z-index: 3000;
-  transition: transform 0.3s;
+  transition: right 0.3s ease;
 }
 .profile-sidebar.active {
-  display: block;
-  animation: slideInSidebar 0.3s;
+  right: 0; /* slide into view */
+}
+
 }
 @keyframes slideInSidebar {
   from { transform: translateX(100%);}
